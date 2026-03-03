@@ -4,9 +4,9 @@
 //Henter oppkoblingen til databasen
 include 'connect.php';
 
-if(isset($_GET['ny_customer']) and ($_SERVER['REQUEST_METHOD'] == 'GET'))
+if(isset($_GET['ny_contact']) and ($_SERVER['REQUEST_METHOD'] == 'GET'))
     {
-    $idfirma = $_GET['idfirma'];
+    $idkontakt = $_GET['idkontakt'];
     $firma_idfirma = $_GET['firma_idfirma'];
     $kontaktpersonEtternavn = $_GET['etternavn'];
     $kontaktpersonFornavn = $_GET['fornavn'];
@@ -15,23 +15,23 @@ if(isset($_GET['ny_customer']) and ($_SERVER['REQUEST_METHOD'] == 'GET'))
     $kontaktpersonDatoLagtTil = $_GET['datoLagtTil'];
 
     // Ser om regnr finnes fra før
-    $sql = "SELECT * FROM firma WHERE idfirma = :idfirma";
+    $sql = "SELECT * FROM kontaktperson WHERE idkontakt = :idkontakt";
     $stmt = $pdo->prepare($sql);
-    $stmt->bindParam(":idfirma",$idfirma);
+    $stmt->bindParam(":idkontakt",$idkontakt);
     $stmt->execute();
 
-    $firma = $stmt->fetch(PDO::FETCH_ASSOC);
+    $kontaktperson = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    print_r($firma);
+    print_r($kontaktperson);
 
-    if (!$firma)
+    if (!$kontaktperson)
         {
 
         $sql = "INSERT INTO kontaktperson (idkontakt, firma_idfirma, kontaktpersonEtternavn, kontaktpersonFornavn, kontaktpersonTlf, kontaktpersonEpost, kontaktpersonDatoLagtTil)
                 VALUES (:idkontakt, :firma_idfirma, :kontaktpersonEtternavn, :kontaktpersonFornavn, :kontaktpersonTlf, :kontaktpersonEpost, :kontaktpersonDatoLagtTil)";
 
         $stmt = $pdo->prepare($sql);
-        $stmt->bindParam(":idkontakt",$idfirma);
+        $stmt->bindParam(":idkontakt",$idkontakt);
         $stmt->bindParam(":firma_idfirma",$firma_idfirma);
         $stmt->bindParam(":kontaktpersonEtternavn",$kontaktpersonEtternavn);
         $stmt->bindParam(":kontaktpersonFornavn",$kontaktpersonFornavn);
