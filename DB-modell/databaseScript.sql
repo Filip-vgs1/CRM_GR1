@@ -8,19 +8,19 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema CRM_GR1
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema CRM_GR1
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
-USE `mydb` ;
+CREATE SCHEMA IF NOT EXISTS `CRM_GR1` DEFAULT CHARACTER SET utf8 ;
+USE `CRM_GR1` ;
 
 -- -----------------------------------------------------
--- Table `mydb`.`firma`
+-- Table `CRM_GR1`.`firma`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`firma` (
+CREATE TABLE IF NOT EXISTS `CRM_GR1`.`firma` (
   `idfirma` INT NOT NULL AUTO_INCREMENT,
   `firmaStatus` ENUM('Aktiv', 'Inaktiv') NOT NULL,
   `firmaOrganisasjonsnummer` VARCHAR(9) NULL,
@@ -34,25 +34,26 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`kontaktperson`
+-- Table `CRM_GR1`.`kontaktperson`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`kontaktperson` (
+
+CREATE TABLE IF NOT EXISTS `CRM_GR1`.`kontaktperson` (
   `idkontaktperson` INT NOT NULL AUTO_INCREMENT,
   `firma_idfirma` INT NOT NULL,
   `kontaktpersonStatus` ENUM('Aktiv', 'Inaktiv') NOT NULL,
   `kontaktpersonEtternavn` VARCHAR(128) NULL,
   `kontaktpersonFornavn` VARCHAR(64) NULL,
   `kontaktpersonTlf` VARCHAR(15) NULL,
-  `kontaktpersonEpost|` VARCHAR(128) NULL,
+  `kontaktpersonEpost` VARCHAR(128) NULL,
   `kontaktpersonDatoLagtTil` DATE NULL,
   PRIMARY KEY (`idkontaktperson`),
-  INDEX `fk_kontaktperson_firma_idx` (`firma_idfirma` ASC) VISIBLE,
+  INDEX `fk_kontaktperson_firma_idx` (`firma_idfirma`),
   CONSTRAINT `fk_kontaktperson_firma`
     FOREIGN KEY (`firma_idfirma`)
-    REFERENCES `mydb`.`firma` (`idfirma`)
+    REFERENCES `CRM_GR1`.`firma` (`idfirma`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+    ON UPDATE NO ACTION
+) ENGINE = InnoDB;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
