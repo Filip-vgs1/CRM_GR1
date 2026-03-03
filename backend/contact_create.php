@@ -21,18 +21,22 @@
         <p>Registrer ny contact</p>
     </header>
     <main>
-        <form action="ny_bekreft.php" method="get">
-            <label for="regnr">Regnr:</label><br>
-            <input type="text" id="regnr" name="regnr" required><br><br>
-            <label for="merke">Merke:</label><br>
-            <input type="text" id="merke" name="merke" required><br><br>
-            <label for="type">Type:</label><br>
-            <input type="text" id="type" name="type" required><br><br>
-            <label for="farge">Farge:</label><br>
-            <input type="text" id="farge" name="farge" required><br><br>
-            <label for="aar">År:</label><br>
-            <input type="number" id="aar" name="aar" required><br><br>
-            <input type="submit" name="ny_bil" id ="ny_bil" value="Registrer">
+        <form action="contact_create_bekreft.php" method="get">
+            <label for="idkontakt">ID:</label><br>
+            <input type="text" id="idkontakt" name="idkontakt" required><br><br>
+            <label for="firma_idfirma">Firma ID:</label><br>
+            <input type="text" id="firma_idfirma" name="firma_idfirma" required><br><br>
+            <label for="etternavn">Etternavn:</label><br>
+            <input type="text" id="etternavn" name="etternavn" required><br><br>
+            <label for="fornavn">Fornavn:</label><br>
+            <input type="text" id="fornavn" name="fornavn" required><br><br>
+            <label for="tlf">Telefon:</label><br>
+            <input type="text" id="tlf" name="tlf" required><br><br>
+            <label for="epost">E-post:</label><br>
+            <input type="text" id="epost" name="epost" required><br><br>
+            <label for="datoLagtTil">Dato lagt til:</label><br>
+            <input type="date" id="datoLagtTil" name="datoLagtTil" required><br><br>
+            <input type="submit" name="ny_contact" id ="ny_contact" value="Registrer">
         </form>
     </main>
 </body>
