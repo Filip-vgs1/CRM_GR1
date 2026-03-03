@@ -28,7 +28,7 @@ if(isset($_GET['slett_contact']) and ($_SERVER['REQUEST_METHOD'] == 'GET'))
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/style.css" type ="text/css">
+    <link rel="stylesheet" href="../frontend/style.css" type ="text/css">
     <title>kontakt</title>
 </head>
 <body>

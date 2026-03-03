@@ -11,13 +11,6 @@ $stmt->execute();
 
 $kontakter = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-//print_r($biler);
-
-//foreach ($biler as $bil)
- //   {
-   //     echo  "<br>" . $bil ['regnr']. "-" . $bil ['merke']. "-" . $bil ['type']. "-" . $bil ['farge']. "-" . $bil ['aar'];
-   // }
-
 ?>
 
 <!DOCTYPE html>
@@ -25,8 +18,8 @@ $kontakter = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Min bil</title>
-    <link rel="stylesheet" href="./css/style.css" type ="text/css">
+    <title>Kontakter</title>
+    <link rel="stylesheet" href="style.css" type ="text/css">
 </head>
 <body>
 <?php include "meny.php"; ?>
