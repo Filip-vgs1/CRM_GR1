@@ -47,7 +47,7 @@
             </section>
             <section>
                 <label for="firmaKundeSiden">Dato Lagt Til:</label><br>
-                <input type="text" id="firmaKundeSiden" name="firmaKundeSiden" required><br><br>
+                <input type="date" id="firmaKundeSiden" name="firmaKundeSiden" required><br><br>
             </section>
             <input type="submit" name="ny_custumer" id ="ny_custumer" value="Registrer">
         </form>
