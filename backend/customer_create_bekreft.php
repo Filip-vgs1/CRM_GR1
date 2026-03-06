@@ -1,43 +1,40 @@
 <?php
 
-
 //Henter oppkoblingen til databasen
 include 'connect.php';
 
-if(isset($_GET['ny_customer']) and ($_SERVER['REQUEST_METHOD'] == 'GET'))
-    {
-    $idfirma = $_GET['idfirma'];
-    $firma_idfirma = $_GET['firma_idfirma'];
-    $kontaktpersonEtternavn = $_GET['etternavn'];
-    $kontaktpersonFornavn = $_GET['fornavn'];
-    $kontaktpersonTlf = $_GET['tlf'];
-    $kontaktpersonEpost = $_GET['epost'];
-    $kontaktpersonDatoLagtTil = $_GET['datoLagtTil'];
+if(isset($_GET['ny_customer']) and ($_SERVER['REQUEST_METHOD'] == 'GET')) {
+    $firmaNavn                  =   $_GET['firmaNavn'];
+    $firmaOrganisasjonsnummer   =   $_GET['firmaOrganisasjonsnummer'];
+    $firmaAdresse               =   $_GET['firmaAdresse'];
+    $firmaPostnr                =   $_GET['firmaPostnr'];
+    $firmaTlf                   =   $_GET['firmaTlf'];
 
-    // Ser om regnr finnes fra før
-    $sql = "SELECT * FROM firma WHERE idfirma = :idfirma";
+    $firmaStatus = 'Aktiv'
+
+    //ser om idfirma finnes fra før
+    $sql = "SELECT * FROM firma WHERE idfirma;
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(":idfirma",$idfirma);
     $stmt->execute();
 
-    $firma = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    print_r($firma);
-
-    if (!$firma)
-        {
-
-        $sql = "INSERT INTO kontaktperson (idkontakt, firma_idfirma, kontaktpersonEtternavn, kontaktpersonFornavn, kontaktpersonTlf, kontaktpersonEpost, kontaktpersonDatoLagtTil)
-                VALUES (:idkontakt, :firma_idfirma, :kontaktpersonEtternavn, :kontaktpersonFornavn, :kontaktpersonTlf, :kontaktpersonEpost, :kontaktpersonDatoLagtTil)";
+    $dyr = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+    print_r($dyr);
+    
+    if (!$dyr){
+        $sql = "INSERT INTO dyrene (kjeledyrNavn, kjeledyrFarge, typeDyr, dyreRase, kjeledyrFodt, kjeledyrHoyde, kjeledyrVekt)
+                VALUES (:kjeledyrNavn, :kjeledyrFarge, :typeDyr, :dyreRase, :kjeledyrFodt, :kjeledyrHoyde, :kjeledyrVekt)";
 
         $stmt = $pdo->prepare($sql);
-        $stmt->bindParam(":idkontakt",$idfirma);
-        $stmt->bindParam(":firma_idfirma",$firma_idfirma);
-        $stmt->bindParam(":kontaktpersonEtternavn",$kontaktpersonEtternavn);
-        $stmt->bindParam(":kontaktpersonFornavn",$kontaktpersonFornavn);
-        $stmt->bindParam(":kontaktpersonTlf",$kontaktpersonTlf);
-        $stmt->bindParam(":kontaktpersonEpost",$kontaktpersonEpost);
-        $stmt->bindParam(":kontaktpersonDatoLagtTil",$kontaktpersonDatoLagtTil);
+        // $stmt->bindParam(":idKjeledyr",$idKjeledyr);
+        $stmt->bindParam(":kjeledyrNavn",$kjeledyrNavn);
+        $stmt->bindParam(":kjeledyrFarge",$kjeledyrFarge);
+        $stmt->bindParam(":typeDyr",$typeDyr);
+        $stmt->bindParam(":dyreRase",$dyreRase);
+        $stmt->bindParam(":kjeledyrFodt",$kjeledyrFodt);
+        $stmt->bindParam(":kjeledyrHoyde",$kjeledyrHoyde);
+        $stmt->bindParam(":kjeledyrVekt",$kjeledyrVekt);
         $stmt->execute();
         }
     else
