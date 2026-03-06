@@ -46,8 +46,8 @@
                 <input type="text" id="firmaStatus" name="firmaStatus" required><br><br>
             </section>
             <section>
-                <label for="firmaDatoLagtTil">Dato Lagt Til:</label><br>
-                <input type="text" id="firmaDatoLagtTil" name="firmaDatoLagtTil" required><br><br>
+                <label for="firmaKundeSiden">Dato Lagt Til:</label><br>
+                <input type="text" id="firmaKundeSiden" name="firmaKundeSiden" required><br><br>
             </section>
             <input type="submit" name="ny_custumer" id ="ny_custumer" value="Registrer">
         </form>
