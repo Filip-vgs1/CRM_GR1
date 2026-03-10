@@ -51,7 +51,7 @@ $firmaer = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <td><?php echo htmlspecialchars($firma['firmaNavn']) ?></td>
                 <td><?php echo htmlspecialchars($firma['firmaAdresse']) ?></td>
                 <td><?php echo htmlspecialchars($firma['firmaTlf']) ?></td>
-                <td><?php echo htmlspecialchars($firma['firmaDatoLagtTil']) ?></td>
+                <td><?php echo htmlspecialchars($firma['firmaKundeSiden']) ?></td>
                 <td><?php echo htmlspecialchars($firma['firmaPostnr']) ?></td>
                 <td><a href="rediger_firma.php?idfirma=<?php echo htmlspecialchars($firma['idfirma']) ?>">Rediger</a></td>
                 <td><a id="slett" href="slett_firma.php?idfirma=<?php echo htmlspecialchars($firma['idfirma']) ?>">Slett</a></td>
