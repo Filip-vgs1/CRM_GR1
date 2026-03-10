@@ -18,7 +18,7 @@
 <body>
     <?php include "../frontend/meny.php"; ?>
     <header>
-        <p>Registrer ny contact</p>
+        <p>legge til kontakt</p>
     </header>
     <main>
         <form action="contact_create_bekreft.php" method="get">
