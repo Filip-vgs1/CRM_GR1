@@ -42,10 +42,6 @@
                 <input type="text" id="firmaTlf" name="firmaTlf" required><br><br>
             </section>
             <section>
-                <label for="firmaStatus">Firma Status:</label><br>
-                <input type="text" id="firmaStatus" name="firmaStatus" required><br><br>
-            </section>
-            <section>
                 <label for="firmaKundeSiden">Dato Lagt Til:</label><br>
                 <input type="date" id="firmaKundeSiden" name="firmaKundeSiden" required><br><br>
             </section>
