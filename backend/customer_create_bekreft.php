@@ -1,9 +1,9 @@
 <?php
 
 //Henter oppkoblingen til databasen
-include 'connect.php';
+include "../frontend/connect.php";
 
-if(isset($_GET['ny_customer']) and ($_SERVER['REQUEST_METHOD'] == 'GET')) {
+if(isset($_GET['ny_custumer']) and ($_SERVER['REQUEST_METHOD'] == 'GET')) {
     $firmaNavn                  =   $_GET['firmaNavn'];
     $firmaOrganisasjonsnummer   =   $_GET['firmaOrganisasjonsnummer'];
     $firmaAdresse               =   $_GET['firmaAdresse'];
@@ -16,31 +16,30 @@ if(isset($_GET['ny_customer']) and ($_SERVER['REQUEST_METHOD'] == 'GET')) {
     //ser om idfirma finnes fra før
     $sql = "SELECT * FROM firma WHERE idfirma =:idfirma";
     $stmt = $pdo->prepare($sql);
-    $stmt->bindParam(":idfirma");
+    $stmt->bindParam(":idfirma", $idfirma);
     $stmt->execute();
 
-    $dyr = $stmt->fetch(PDO::FETCH_ASSOC);
+    $firma = $stmt->fetch(PDO::FETCH_ASSOC);
     
     if (!$firma){
-        $sql = "INSERT INTO firma (firmaOrganisasjonsnummer, firmaAdresse, firmaPostnr, firmaTlf, firmaStatus, firmaKundeSiden)
-                VALUES (:firmaOrganisasjonsnummer, :firmaAdresse, :firmaPostnr, :firmaTlf, :firmaStatus, :firmaKundeSiden)";
+        $sql = "INSERT INTO firma (firmaNavn, firmaOrganisasjonsnummer, firmaAdresse, firmaPostnr, firmaTlf, firmaStatus, firmaKundeSiden)
+                VALUES (:firmaNavn, :firmaOrganisasjonsnummer, :firmaAdresse, :firmaPostnr, :firmaTlf, :firmaStatus, :firmaKundeSiden)";
 
         $stmt = $pdo->prepare($sql);
-        // $stmt->bindParam(":idKjeledyr",$idKjeledyr);
+        $stmt->bindParam(":firmaNavn",$firmaNavn);
         $stmt->bindParam(":firmaOrganisasjonsnummer",$firmaOrganisasjonsnummer);
         $stmt->bindParam(":firmaAdresse",$firmaAdresse);
         $stmt->bindParam(":firmaPostnr",$firmaPostnr);
         $stmt->bindParam(":firmaTlf",$firmaTlf);
         $stmt->bindParam(":firmaStatus",$firmaStatus);
         $stmt->bindParam(":firmaKundeSiden",$firmaKundeSiden);
-        $stmt->bindParam(":ny_custumer",$ny_custumer);
         $stmt->execute();
         }
     else
         {
     $stmt = 0;    
         }
-    }    
+    }
 else
     {
     $stmt = 0;    
