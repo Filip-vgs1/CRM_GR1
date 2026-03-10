@@ -19,7 +19,7 @@ $kontakter = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kontakter</title>
-    <link rel="stylesheet" href="style.css" type ="text/css">
+    <link rel="stylesheet" href="../frontend/style.css" type ="text/css">
 </head>
 <body>
 <?php include "meny.php"; ?>
