@@ -5,9 +5,9 @@
             <li><a href="../backend/contact_create.php">Legg Til Kontaktperson</a></li>
             <li><a href="../backend/customer_create.php">Legg Til Kunde</a></li>
         </ul>
-        </nav>';
+        </nav>
     
-?>
+
 
 <!DOCTYPE html>
 <html lang="en">
