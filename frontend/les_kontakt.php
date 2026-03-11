@@ -43,14 +43,14 @@ $kontakter = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <?php foreach ($kontakter as $kontakt)
                 { ?>
                 <tr>
-                <td><?php echo htmlspecialchars($kontakt['idkontakt']) ?></td>
+                <td><?php echo htmlspecialchars($kontakt['idkontaktperson']) ?></td>
                 <td><?php echo htmlspecialchars($kontakt['kontaktpersonFornavn']) ?></td>
                 <td><?php echo htmlspecialchars($kontakt['kontaktpersonEtternavn']) ?></td>
                 <td><?php echo htmlspecialchars($kontakt['kontaktpersonTlf']) ?></td>
                 <td><?php echo htmlspecialchars($kontakt['kontaktpersonEpost']) ?></td>
                 <td><?php echo htmlspecialchars($kontakt['kontaktpersonDatoLagtTil']) ?></td>
-                <td><a href="rediger_kontakt.php?idkontakt=<?php echo htmlspecialchars($kontakt['idkontakt']) ?>">Rediger</a></td>
-                <td><a id="slett" href="slett_kontakt.php?idkontakt=<?php echo htmlspecialchars($kontakt['idkontakt']) ?>">Slett</a></td>
+                <td><a href="rediger_kontakt.php?idkontakt=<?php echo htmlspecialchars($kontakt['idkontaktperson']) ?>">Rediger</a></td>
+                <td><a id="slett" href="slett_kontakt.php?idkontakt=<?php echo htmlspecialchars($kontakt['idkontaktperson']) ?>">Slett</a></td>
                 </tr>
                 <?php } ?>
 
