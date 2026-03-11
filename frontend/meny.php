@@ -1,3 +1,12 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meny</title>
+    <link rel="stylesheet" href="../frontend/style.css">
+</head>
+
 <nav>
         <ul>
             <li><a href="../frontend/les_kontakt.php">Hjem (Firmaer)</a></li>
