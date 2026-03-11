@@ -49,7 +49,7 @@ $kontakter = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <td><?php echo htmlspecialchars($kontakt['kontaktpersonTlf']) ?></td>
                 <td><?php echo htmlspecialchars($kontakt['kontaktpersonEpost']) ?></td>
                 <td><?php echo htmlspecialchars($kontakt['kontaktpersonDatoLagtTil']) ?></td>
-                <td><a href="rediger_kontakt.php?idkontakt=<?php echo htmlspecialchars($kontakt['idkontaktperson']) ?>">Rediger</a></td>
+                <td><a href="..\backend\contact_update.php?idkontaktperson=<?php echo htmlspecialchars($kontakt['idkontaktperson']) ?>">Rediger</a></td>
                 <td><a id="slett" href="slett_kontakt.php?idkontakt=<?php echo htmlspecialchars($kontakt['idkontaktperson']) ?>">Slett</a></td>
                 </tr>
                 <?php } ?>
