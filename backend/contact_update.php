@@ -65,12 +65,12 @@ if (isset($_GET['idkontaktperson']) && ($_SERVER['REQUEST_METHOD'] == 'GET')) {
             </section>
             <section>
                 <label for="kontaktpersonDatoLagtTil">Dato lagt til</label><br>
-                <input type="text" name="kontaktpersonDatoLagtTil" id="kontaktpersonDatoLagtTil" value="<?php echo htmlspecialchars($kontakt['kontaktpersonDatoLagtTil']); ?>">
+                <input type="date" name="kontaktpersonDatoLagtTil" id="kontaktpersonDatoLagtTil" value="<?php echo htmlspecialchars($kontakt['kontaktpersonDatoLagtTil']); ?>">
             </section>
     
             <input type="hidden" name="rediger_kontaktperson" value="1">
             <input type="submit" id="rediger_kontaktperson" value="Rediger">
-        </form>
+        </form> 
     </main>
     
 </body>

@@ -61,8 +61,8 @@ function sorteringslenke($kolonne, $label, $aktivKolonne, $aktivRetning, $nestRe
                     <td><?php echo htmlspecialchars($firma['firmaTlf']); ?></td>
                     <td><?php echo htmlspecialchars($firma['firmaKundeSiden']); ?></td>
                     <td><?php echo htmlspecialchars($firma['firmaPostnr']); ?></td>
-                    <td><a href="rediger_firma.php?idfirma=<?php echo htmlspecialchars($firma['idfirma']); ?>">Rediger</a></td>
-                    <td><a id="slett" href="slett_firma.php?idfirma=<?php echo htmlspecialchars($firma['idfirma']); ?>">Slett</a></td>
+                    <td><a href="../backend/customer_update.php?idfirma=<?php echo htmlspecialchars($firma['idfirma']); ?>">Rediger</a></td>
+                    <td><a id="slett" href="../backend/customer_delete.php?idfirma=<?php echo htmlspecialchars($firma['idfirma']); ?>">Slett</a></td>
                 </tr>
                 <?php endforeach; ?>
             </tbody>
