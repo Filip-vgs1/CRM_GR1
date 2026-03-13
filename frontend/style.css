@@ -367,3 +367,28 @@ img {
         grid-template-columns: 1fr;
     }
 }
+
+
+/* ── Sortering ── */
+.sorter-lenke {
+    color: rgba(255,255,255,0.85);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: none;
+    border: none;
+    padding: 0;
+    transition: color 0.2s;
+}
+
+.sorter-lenke:hover {
+    color: #ffffff;
+    background: none;
+    border: none;
+}
+
+.sorter-lenke.aktiv {
+    color: #ffffff;
+}
