@@ -1,53 +1,41 @@
 <?php
 
+include '../frontend/connect.php';
 
-//Henter oppkoblingen til databasen
-include 'connect.php';
+if (isset($_GET['slett_kontakt']) && $_SERVER['REQUEST_METHOD'] == 'GET') {
+    $idkontaktperson = $_GET['idkontaktperson'];
 
-if(isset($_GET['slett_contact']) and ($_SERVER['REQUEST_METHOD'] == 'GET'))
-    {
-    $idkontakt = $_GET['idkontakt'];
-
-
-    // Sletter kontakt i databasen
-    $sql = "DELETE FROM kontaktperson WHERE idkontakt = :idkontakt";
+    $sql = "DELETE FROM kontaktperson WHERE idkontaktperson = :idkontaktperson";
     $stmt = $pdo->prepare($sql);
-    $stmt->bindParam(":idkontakt",$idkontakt);
+    $stmt->bindParam(':idkontaktperson', $idkontaktperson);
     $stmt->execute();
-    }
-    else
-    {
-    $stmt = 0;    
-    }
+    $slettet = $stmt->rowCount() > 0;
+} else {
+    $slettet = false;
+}
 
 ?>
 
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="no">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../frontend/style.css" type ="text/css">
-    <title>kontakt</title>
+    <link rel="stylesheet" href="../frontend/style.css" type="text/css">
+    <title>Kontakt slettet</title>
 </head>
 <body>
-<?php include "meny.php"; ?>
+    <?php include "../frontend/meny.php"; ?>
     <header>
-        <p>Slett kontakt</p>
+        <p>Slett kontaktperson</p>
     </header>
-
     <main>
-        <?php 
-        if ($stmt)
-            {
-                echo '<p>En kontakt er slettet</p>';
-            }
-            else 
-                {
-                    echo '<p id="slett">Det skjedde en feil, og kontakten kunne ikke slettes</p>';
-                }
-        ?>
+        <?php if ($slettet): ?>
+            <p>Kontaktpersonen er slettet.</p>
+        <?php else: ?>
+            <p style="background-color:#fde8e8; border-left-color:#e05c5c;">Det skjedde en feil - kontaktpersonen kunne ikke slettes.</p>
+        <?php endif; ?>
+        <a id="std_link" href="../frontend/les_kontakt.php">Tilbake til kontaktlisten</a>
     </main>
 </body>
 </html>
