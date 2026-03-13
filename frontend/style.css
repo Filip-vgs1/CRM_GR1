@@ -288,3 +288,82 @@ img {
     width: 50%;
     box-shadow: 0 4px 20px rgba(0,0,0,0.12);
 }
+
+
+/* ── Om oss ── */
+.om-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 24px;
+}
+
+.om-kort {
+    background-color: var(--primary-light);
+    border-left: 4px solid var(--primary);
+    border-radius: var(--radius);
+    padding: 24px 28px;
+}
+
+.om-kort h2 {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.om-kort p {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font-size: 15px;
+    color: var(--text-muted);
+    line-height: 1.6;
+}
+
+.intro-tekst {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0 0 8px;
+    font-size: 16px;
+    color: var(--text-muted);
+    line-height: 1.7;
+}
+
+.intro-tekst strong {
+    color: var(--primary);
+}
+
+.gruppe-liste {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.gruppe-liste li {
+    background-color: var(--primary);
+    color: #fff;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 8px 18px;
+    border-radius: 20px;
+    letter-spacing: 0.03em;
+}
+
+.seksjon-tittel {
+    font-family: 'Playfair Display', serif;
+    color: var(--primary);
+    font-size: 22px;
+    margin: 32px 0 12px;
+    border-bottom: 2px solid var(--primary-light);
+    padding-bottom: 8px;
+}
+
+@media (max-width: 680px) {
+    .om-grid {
+        grid-template-columns: 1fr;
+    }
+}
