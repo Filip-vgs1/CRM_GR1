@@ -1,64 +1,77 @@
 <?php
 
-include "../frontend/connect.php";
+//Hente databasen
+include '..\frontend\connect.php';
 
-if (isset($_GET['idkontaktperson']) && $_SERVER['REQUEST_METHOD'] == 'GET') {
-    $idkontaktperson = $_GET['idkontaktperson'];
 
+if (isset($_GET['idkontaktperson']) && ($_SERVER['REQUEST_METHOD'] == 'GET')) {
+    $idkontaktperson  =   $_GET['idkontaktperson'];
+    
+    //ser om idkontaktperson finnes fra før
     $sql = "SELECT * FROM kontaktperson WHERE idkontaktperson = :idkontaktperson";
     $stmt = $pdo->prepare($sql);
-    $stmt->bindParam(':idkontaktperson', $idkontaktperson);
+    $stmt->bindParam(":idkontaktperson",$idkontaktperson);
     $stmt->execute();
+
     $kontakt = $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
 ?>
 
 <!DOCTYPE html>
-<html lang="no">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../frontend/style.css" type="text/css">
+    <link rel="stylesheet" href="./css/style.css" type="text/css">
     <title>Rediger kontaktperson</title>
 </head>
 <body>
-    <?php include "../frontend/meny.php"; ?>
+    <section>
+        <?php include '..\frontend\meny.php'; ?>
+    </section>
     <header>
-        <p>Rediger kontaktperson</p>
+        <p>Rediger en kontaktperson</p>
     </header>
     <main>
-        <?php if (!empty($kontakt)): ?>
-        <form action="contact_update_bekreft.php" method="get">
-            <input type="hidden" name="idkontaktperson" value="<?php echo htmlspecialchars($kontakt['idkontaktperson']); ?>">
-
-            <label for="fornavn">Fornavn:</label>
-            <input type="text" id="fornavn" name="fornavn" value="<?php echo htmlspecialchars($kontakt['kontaktpersonFornavn']); ?>" required>
-
-            <label for="etternavn">Etternavn:</label>
-            <input type="text" id="etternavn" name="etternavn" value="<?php echo htmlspecialchars($kontakt['kontaktpersonEtternavn']); ?>" required>
-
-            <label for="tlf">Telefon:</label>
-            <input type="text" id="tlf" name="tlf" value="<?php echo htmlspecialchars($kontakt['kontaktpersonTlf']); ?>" required>
-
-            <label for="epost">E-post:</label>
-            <input type="text" id="epost" name="epost" value="<?php echo htmlspecialchars($kontakt['kontaktpersonEpost']); ?>" required>
-
-            <label for="status">Status:</label>
-            <select id="status" name="status">
-                <option value="Aktiv" <?php echo $kontakt['kontaktpersonStatus'] === 'Aktiv' ? 'selected' : ''; ?>>Aktiv</option>
-                <option value="Inaktiv" <?php echo $kontakt['kontaktpersonStatus'] === 'Inaktiv' ? 'selected' : ''; ?>>Inaktiv</option>
-            </select>
-
-            <br>
-            <input type="submit" name="oppdater_kontakt" value="Se over endringer →">
+        <form action="contact_update_bekreft.php" method="GET">
+            <section>
+                <label for="kjeledyrNavn">Id Kontaktperson</label><br>
+                <input type="text" name="idkontaktperson" value="<?php echo htmlspecialchars($kontakt['idkontaktperson']); ?>">
+            </section>
+            <section>
+                <label for="kjeledyrNavn">Id Firma</label><br>
+                <input type="text" name="kjeledyrNavn" id="firma_idfirma" value="<?php echo htmlspecialchars($kontakt['firma_idfirma']); ?>" readonly>
+            </section>
+            <section>
+                <label for="kontaktpersonStatus">Status</label><br>
+                <input type="text" name="kontaktpersonStatus" id="kontaktpersonStatus" value="<?php echo htmlspecialchars($kontakt['kontaktpersonStatus']); ?>" required>
+            </section>
+            <section>
+                <label for="kontaktpersonEtternavn">Kontaktperson etternavn</label><br>
+                <input type="text" name="kontaktpersonEtternavn" id="kontaktpersonEtternavn" value="<?php echo htmlspecialchars($kontakt['kontaktpersonEtternavn']); ?>" required>
+            </section>
+            <section>
+                <label for="kontaktpersonFornavn">Kontaktperson fornavn</label><br>
+                <input type="text" name="kontaktpersonFornavn" id="kontaktpersonFornavn" value="<?php echo htmlspecialchars($kontakt['kontaktpersonFornavn']); ?>" required>
+            </section>
+            <section>
+                <label for="kontaktpersonTlf">Telefonnummer</label><br>
+                <input type="text" name="kontaktpersonTlf" id="kontaktpersonTlf" value="<?php echo htmlspecialchars($kontakt['kontaktpersonTlf']); ?>">
+            </section>
+            <section>
+                <label for="kontaktpersonEpost">Epost</label><br>
+                <input type="text" name="kontaktpersonEpost" id="kontaktpersonEpost" value="<?php echo htmlspecialchars($kontakt['kontaktpersonEpost']); ?>">
+            </section>
+            <section>
+                <label for="kontaktpersonDatoLagtTil">Dato lagt til</label><br>
+                <input type="text" name="kontaktpersonDatoLagtTil" id="kontaktpersonDatoLagtTil" value="<?php echo htmlspecialchars($kontakt['kontaktpersonDatoLagtTil']); ?>">
+            </section>
+    
+            <input type="hidden" name="rediger_kontaktperson" value="1">
+            <input type="submit" id="rediger_kontaktperson" value="Rediger">
         </form>
-        <br>
-        <a id="std_link" href="../frontend/les_kontakt.php">← Avbryt</a>
-        <?php else: ?>
-            <p style="background-color:#fde8e8; border-left-color:#e05c5c;">Kontaktpersonen ble ikke funnet.</p>
-            <a id="std_link" href="../frontend/les_kontakt.php">← Tilbake til liste</a>
-        <?php endif; ?>
     </main>
+    
 </body>
 </html>
