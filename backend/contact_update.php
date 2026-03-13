@@ -36,24 +36,24 @@ if (isset($_GET['idkontaktperson']) && ($_SERVER['REQUEST_METHOD'] == 'GET')) {
     <main>
         <form action="contact_update_bekreft.php" method="GET">
             <section>
-                <label for="kjeledyrNavn">Id Kontaktperson</label><br>
-                <input type="text" name="idkontaktperson" value="<?php echo htmlspecialchars($kontakt['idkontaktperson']); ?>">
+                <label for="idkontaktperson">Id Kontaktperson</label><br>
+                <input type="text" name="idkontaktperson" value="<?php echo htmlspecialchars($kontakt['idkontaktperson']); ?>" readonly>
             </section>
             <section>
-                <label for="kjeledyrNavn">Id Firma</label><br>
-                <input type="text" name="kjeledyrNavn" id="firma_idfirma" value="<?php echo htmlspecialchars($kontakt['firma_idfirma']); ?>" readonly>
+                <label for="firma_idfirma">Id Firma</label><br>
+                <input type="text" name="firma_idfirma" id="firma_idfirma" value="<?php echo htmlspecialchars($kontakt['firma_idfirma']); ?>" readonly>
             </section>
             <section>
                 <label for="kontaktpersonStatus">Status</label><br>
                 <input type="text" name="kontaktpersonStatus" id="kontaktpersonStatus" value="<?php echo htmlspecialchars($kontakt['kontaktpersonStatus']); ?>" required>
             </section>
             <section>
-                <label for="kontaktpersonEtternavn">Kontaktperson etternavn</label><br>
-                <input type="text" name="kontaktpersonEtternavn" id="kontaktpersonEtternavn" value="<?php echo htmlspecialchars($kontakt['kontaktpersonEtternavn']); ?>" required>
-            </section>
-            <section>
                 <label for="kontaktpersonFornavn">Kontaktperson fornavn</label><br>
                 <input type="text" name="kontaktpersonFornavn" id="kontaktpersonFornavn" value="<?php echo htmlspecialchars($kontakt['kontaktpersonFornavn']); ?>" required>
+            </section>
+            <section>
+                <label for="kontaktpersonEtternavn">Kontaktperson etternavn</label><br>
+                <input type="text" name="kontaktpersonEtternavn" id="kontaktpersonEtternavn" value="<?php echo htmlspecialchars($kontakt['kontaktpersonEtternavn']); ?>" required>
             </section>
             <section>
                 <label for="kontaktpersonTlf">Telefonnummer</label><br>
