@@ -2,12 +2,18 @@
 
 include "connect.php";
 
-$tillatteSorteringer = ['kontaktpersonFornavn', 'kontaktpersonEtternavn', 'kontaktpersonEpost', 'kontaktpersonStatus'];
+$tillatteSorteringer = ['kontaktpersonFornavn', 'kontaktpersonEtternavn', 'kontaktpersonEpost', 'kontaktpersonStatus', 'firmaNavn'];
 $sorterPa    = isset($_GET['sorter']) && in_array($_GET['sorter'], $tillatteSorteringer) ? $_GET['sorter'] : 'kontaktpersonEtternavn';
 $retning     = isset($_GET['retning']) && $_GET['retning'] === 'DESC' ? 'DESC' : 'ASC';
 $nestRetning = $retning === 'ASC' ? 'DESC' : 'ASC';
 
-$sql = "SELECT * FROM kontaktperson ORDER BY $sorterPa $retning";
+$sql = "
+SELECT kontaktperson.*, firma.firmaNavn 
+FROM kontaktperson
+LEFT JOIN firma 
+ON kontaktperson.firma_idfirma = firma.idfirma
+ORDER BY $sorterPa $retning
+";
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
 $kontakter = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -39,6 +45,7 @@ function sorteringslenke($kolonne, $label, $aktivKolonne, $aktivRetning, $nestRe
             <thead>
                 <tr>
                     <th>ID</th>
+                    <th><?php echo sorteringslenke('firmaNavn', 'Firma', $sorterPa, $retning, $nestRetning); ?></th>
                     <th><?php echo sorteringslenke('kontaktpersonFornavn',  'Fornavn',   $sorterPa, $retning, $nestRetning); ?></th>
                     <th><?php echo sorteringslenke('kontaktpersonEtternavn','Etternavn', $sorterPa, $retning, $nestRetning); ?></th>
                     <th>Telefon</th>
@@ -53,6 +60,7 @@ function sorteringslenke($kolonne, $label, $aktivKolonne, $aktivRetning, $nestRe
                 <?php foreach ($kontakter as $kontakt): ?>
                 <tr>
                     <td><?php echo htmlspecialchars($kontakt['idkontaktperson']); ?></td>
+                    <td><?php echo htmlspecialchars($kontakt['firmaNavn'] ?? 'Ingen tilknytning'); ?></td>
                     <td><?php echo htmlspecialchars($kontakt['kontaktpersonFornavn']); ?></td>
                     <td><?php echo htmlspecialchars($kontakt['kontaktpersonEtternavn']); ?></td>
                     <td><?php echo htmlspecialchars($kontakt['kontaktpersonTlf']); ?></td>
@@ -60,7 +68,7 @@ function sorteringslenke($kolonne, $label, $aktivKolonne, $aktivRetning, $nestRe
                     <td><?php echo htmlspecialchars($kontakt['kontaktpersonStatus']); ?></td>
                     <td><?php echo htmlspecialchars($kontakt['kontaktpersonDatoLagtTil']); ?></td>
                     <td><a href="..\backend\contact_update.php?idkontaktperson=<?php echo htmlspecialchars($kontakt['idkontaktperson']); ?>">Rediger</a></td>
-                    <td><a id="slett" href="slett_kontakt.php?idkontakt=<?php echo htmlspecialchars($kontakt['idkontaktperson']); ?>">Slett</a></td>
+                    <td><a id="slett" href="../backend/contact_delete.php?idkontaktperson=<?php echo htmlspecialchars($kontakt['idkontaktperson']); ?>">Slett</a></td>
                 </tr>
                 <?php endforeach; ?>
             </tbody>
