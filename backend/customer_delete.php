@@ -1,75 +1,78 @@
 <?php
 
-include "../frontend/connect.php";
+//Henter oppkoblingen til databasen
+include '../frontend/connect.php';
 
-if (isset($_GET['idfirma']) && $_SERVER['REQUEST_METHOD'] == 'GET') {
-    $idfirma = $_GET['idfirma'];
-
+if (isset($_GET['idfirma']) && ($_SERVER['REQUEST_METHOD'] == 'GET')) {
+    $idfirma  =   $_GET['idfirma'];
+    
+    //ser om idfirma finnes fra før
     $sql = "SELECT * FROM firma WHERE idfirma = :idfirma";
     $stmt = $pdo->prepare($sql);
-    $stmt->bindParam(':idfirma', $idfirma);
+    $stmt->bindParam(":idfirma",$idfirma);
     $stmt->execute();
+
     $firma = $stmt->fetch(PDO::FETCH_ASSOC);
 }
-
-?>
+?> 
 
 <!DOCTYPE html>
-<html lang="no">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../frontend/style.css" type="text/css">
-    <title>Slett kunde</title>
+    <link rel="stylesheet" href="./css/style.css" type="text/css">
+    <title>Rediger et firma</title>
 </head>
 <body>
-    <?php include "../frontend/meny.php"; ?>
+    <section>
+        <?php include '..\frontend\meny.php'; ?>
+    </section>
     <header>
-        <p>Bekreft sletting av kunde</p>
+        <p>Rediger et firma</p>
     </header>
     <main>
-        <?php if (!empty($firma)): ?>
-            <p style="background-color:#fde8e8; border-left-color:#e05c5c;">
-                Er du sikker på at du vil slette <strong><?php echo htmlspecialchars($firma['firmaNavn']); ?></strong>? Dette kan ikke angres.
-            </p>
+        <form action="customer_delete_bekreft.php" method="GET">
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Navn</th>
-                        <th>Org.nr</th>
-                        <th>Adresse</th>
-                        <th>Postnr</th>
-                        <th>Telefon</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><?php echo htmlspecialchars($firma['idfirma']); ?></td>
-                        <td><?php echo htmlspecialchars($firma['firmaNavn']); ?></td>
-                        <td><?php echo htmlspecialchars($firma['firmaOrganisasjonsnummer']); ?></td>
-                        <td><?php echo htmlspecialchars($firma['firmaAdresse']); ?></td>
-                        <td><?php echo htmlspecialchars($firma['firmaPostnr']); ?></td>
-                        <td><?php echo htmlspecialchars($firma['firmaTlf']); ?></td>
-                        <td><?php echo htmlspecialchars($firma['firmaStatus']); ?></td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <br>
-            <form action="customer_delete_bekreft.php" method="get" style="display:inline;">
-                <input type="hidden" name="idfirma" value="<?php echo htmlspecialchars($firma['idfirma']); ?>">
-                <input type="submit" name="slett_kunde" id="slett" value="Slett kunde">
-            </form>
-            &nbsp;&nbsp;
-            <a id="std_link" href="../frontend/les_custumer.php">Avbryt</a>
-
-        <?php else: ?>
-            <p style="background-color:#fde8e8; border-left-color:#e05c5c;">Kunden ble ikke funnet.</p>
-            <a id="std_link" href="../frontend/les_custumer.php">Tilbake til liste</a>
-        <?php endif; ?>
+            <input type="submit" id="slett_firma" value="Slett">
+            
+            <section>
+                <label for="idfirma">Id Firma</label><br>
+                <input type="text" name="idfirma" value="<?php echo htmlspecialchars($firma['idfirma']); ?>" readonly>
+            </section>
+            <section>
+                <label for="firmaOrganisasjonsnummer">Organisasjonsnummer</label><br>
+                <input type="text" name="firmaOrganisasjonsnummer" id="firmaOrganisasjonsnummer" value="<?php echo htmlspecialchars($firma['firmaOrganisasjonsnummer']); ?>" required>
+            </section>
+            <section>
+                <label for="firmaNavn">Navn</label><br>
+                <input type="text" name="firmaNavn" id="firmaNavn" value="<?php echo htmlspecialchars($firma['firmaNavn']); ?>" required>
+            </section>
+            <section>
+                <label for="firmaStatus">Status</label><br>
+                <input type="text" name="firmaStatus" id="firmaStatus" value="<?php echo htmlspecialchars($firma['firmaStatus']); ?>" required>
+            </section>
+            <section>
+                <label for="firmaAdresse">Adresse</label><br>
+                <input type="text" name="firmaAdresse" id="firmaAdresse" value="<?php echo htmlspecialchars($firma['firmaAdresse']); ?>">
+            </section>
+            <section>
+                <label for="firmaPostnr">Post nummber</label><br>
+                <input type="text" name="firmaPostnr" id="firmaPostnr" value="<?php echo htmlspecialchars($firma['firmaPostnr']); ?>">
+            </section>
+            <section>
+                <label for="firmaTlf">Telefonnummer</label><br>
+                <input type="text" name="firmaTlf" id="firmaTlf" value="<?php echo htmlspecialchars($firma['firmaTlf']); ?>">
+            </section>
+            <section>
+                <label for="firmaKundeSiden">Kunde siden</label><br>
+                <input type="date" name="firmaKundeSiden" id="firmaKundeSiden" value="<?php echo htmlspecialchars($firma['firmaKundeSiden']); ?>">
+            </section>
+    
+            <input type="hidden" name="slett_firma" value="1">
+            <input type="submit" id="slett_firma" value="Slett">
+        </form> 
     </main>
+    
 </body>
 </html>

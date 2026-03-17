@@ -3,7 +3,7 @@
 //Henter oppkoblingen til databasen
 include "../frontend/connect.php";
 
-if(isset($_GET['ny_custumer']) and ($_SERVER['REQUEST_METHOD'] == 'GET')) {
+if(isset($_GET['ny_custumer']) && ($_SERVER['REQUEST_METHOD'] == 'GET')) {
     $firmaNavn                  =   $_GET['firmaNavn'];
     $firmaOrganisasjonsnummer   =   $_GET['firmaOrganisasjonsnummer'];
     $firmaAdresse               =   $_GET['firmaAdresse'];

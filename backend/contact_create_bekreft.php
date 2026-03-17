@@ -1,57 +1,41 @@
 <?php
+// Henter oppkoblingen til databasen
+include '../frontend/connect.php';
 
-include "../frontend/connect.php";
+if (isset($_POST['ny_contact']) && $_SERVER['REQUEST_METHOD'] == 'POST') {
+    $firma_idfirma = $_POST['firma_idfirma'];
+    $kontaktpersonEtternavn = $_POST['kontaktpersonEtternavn'];
+    $kontaktpersonFornavn = $_POST['kontaktpersonFornavn'];
+    $kontaktpersonTlf = $_POST['kontaktpersonTlf'];
+    $kontaktpersonEpost = $_POST['kontaktpersonEpost'];
+    $kontaktpersonDatoLagtTil = $_POST['kontaktpersonDatoLagtTil'];
 
-if (isset($_GET['oppdater_kontakt']) && $_SERVER['REQUEST_METHOD'] == 'GET') {
 
-    $idkontaktperson = $_GET['idkontaktperson'];
-    $fornavn         = $_GET['fornavn'];
-    $etternavn       = $_GET['etternavn'];
-    $tlf             = $_GET['tlf'];
-    $epost           = $_GET['epost'];
-    $status          = $_GET['status'];
-
+    //ser om idkontaktperson finnes fra før
     $sql = "SELECT * FROM kontaktperson WHERE idkontaktperson = :idkontaktperson";
     $stmt = $pdo->prepare($sql);
-    $stmt->bindParam(':idkontaktperson', $idkontaktperson);
-    $stmt->execute();
-    $gammel = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    $visBekreftelse = true;
-    $lagret = false;
-
-} elseif (isset($_GET['bekreft_oppdater']) && $_SERVER['REQUEST_METHOD'] == 'GET') {
-
-    $idkontaktperson = $_GET['idkontaktperson'];
-    $fornavn         = $_GET['fornavn'];
-    $etternavn       = $_GET['etternavn'];
-    $tlf             = $_GET['tlf'];
-    $epost           = $_GET['epost'];
-    $status          = $_GET['status'];
-
-    $sql = "UPDATE kontaktperson SET
-                kontaktpersonFornavn   = :fornavn,
-                kontaktpersonEtternavn = :etternavn,
-                kontaktpersonTlf       = :tlf,
-                kontaktpersonEpost     = :epost,
-                kontaktpersonStatus    = :status
-            WHERE idkontaktperson = :idkontaktperson";
-
-    $stmt = $pdo->prepare($sql);
-    $stmt->bindParam(':fornavn',         $fornavn);
-    $stmt->bindParam(':etternavn',       $etternavn);
-    $stmt->bindParam(':tlf',             $tlf);
-    $stmt->bindParam(':epost',           $epost);
-    $stmt->bindParam(':status',          $status);
-    $stmt->bindParam(':idkontaktperson', $idkontaktperson);
+    $stmt->bindParam(":idkontaktperson", $idkontaktperson);
     $stmt->execute();
 
-    $visBekreftelse = false;
-    $lagret = $stmt->rowCount() > 0;
+    $kontakt = $stmt->fetch(PDO::FETCH_ASSOC);
 
-} else {
-    $visBekreftelse = false;
-    $lagret = false;
+
+
+    // Basic validation (add more as needed)
+if (!$kontakt) {
+        $sql = "INSERT INTO kontaktperson (firma_idfirma, kontaktpersonStatus, kontaktpersonEtternavn, kontaktpersonFornavn, kontaktpersonTlf, kontaktpersonEpost, kontaktpersonDatoLagtTil)
+                VALUES (:firma_idfirma, 'Aktiv', :kontaktpersonEtternavn, :kontaktpersonFornavn, :kontaktpersonTlf, :kontaktpersonEpost, :kontaktpersonDatoLagtTil)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(":firma_idfirma", $firma_idfirma);
+        $stmt->bindParam(":kontaktpersonEtternavn", $kontaktpersonEtternavn);
+        $stmt->bindParam(":kontaktpersonFornavn", $kontaktpersonFornavn);
+        $stmt->bindParam(":kontaktpersonTlf", $kontaktpersonTlf);
+        $stmt->bindParam(":kontaktpersonEpost", $kontaktpersonEpost);
+        $stmt->bindParam(":kontaktpersonDatoLagtTil", $kontaktpersonDatoLagtTil);
+        $stmt->execute();
+    } else {
+        $message = "Det skjedde en feil, og kontakten kunne ikke registreres";
+    }
 }
 
 ?>
@@ -62,84 +46,27 @@ if (isset($_GET['oppdater_kontakt']) && $_SERVER['REQUEST_METHOD'] == 'GET') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../frontend/style.css" type="text/css">
-    <title>Bekreft endringer</title>
+    <title>Registrer kontaktperson</title>
 </head>
 <body>
+
     <?php include "../frontend/meny.php"; ?>
 
-    <?php if ($visBekreftelse): ?>
     <header>
-        <p>Bekreft endringer for kontaktperson</p>
+        <h1>Registrert ny kontaktperson</h1>
     </header>
+
     <main>
-        <p style="background-color:#fff8e1; border-left-color:#f5a623;">
-            Kontroller endringene nedenfor og klikk Lagre for å bekrefte.
-        </p>
-
-        <table>
-            <thead>
-                <tr>
-                    <th>Felt</th>
-                    <th>Gammel verdi</th>
-                    <th>Ny verdi</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Fornavn</td>
-                    <td><?php echo htmlspecialchars($gammel['kontaktpersonFornavn']); ?></td>
-                    <td><?php echo htmlspecialchars($fornavn); ?></td>
-                </tr>
-                <tr>
-                    <td>Etternavn</td>
-                    <td><?php echo htmlspecialchars($gammel['kontaktpersonEtternavn']); ?></td>
-                    <td><?php echo htmlspecialchars($etternavn); ?></td>
-                </tr>
-                <tr>
-                    <td>Telefon</td>
-                    <td><?php echo htmlspecialchars($gammel['kontaktpersonTlf']); ?></td>
-                    <td><?php echo htmlspecialchars($tlf); ?></td>
-                </tr>
-                <tr>
-                    <td>E-post</td>
-                    <td><?php echo htmlspecialchars($gammel['kontaktpersonEpost']); ?></td>
-                    <td><?php echo htmlspecialchars($epost); ?></td>
-                </tr>
-                <tr>
-                    <td>Status</td>
-                    <td><?php echo htmlspecialchars($gammel['kontaktpersonStatus']); ?></td>
-                    <td><?php echo htmlspecialchars($status); ?></td>
-                </tr>
-            </tbody>
-        </table>
-
-        <br>
-        <form action="contact_update_bekreft.php" method="get" style="display:inline;">
-            <input type="hidden" name="idkontaktperson" value="<?php echo htmlspecialchars($idkontaktperson); ?>">
-            <input type="hidden" name="fornavn"         value="<?php echo htmlspecialchars($fornavn); ?>">
-            <input type="hidden" name="etternavn"       value="<?php echo htmlspecialchars($etternavn); ?>">
-            <input type="hidden" name="tlf"             value="<?php echo htmlspecialchars($tlf); ?>">
-            <input type="hidden" name="epost"           value="<?php echo htmlspecialchars($epost); ?>">
-            <input type="hidden" name="status"          value="<?php echo htmlspecialchars($status); ?>">
-            <input type="submit" name="bekreft_oppdater" value="Lagre">
-        </form>
-        &nbsp;&nbsp;
-        <a id="std_link" href="contact_update.php?idkontaktperson=<?php echo htmlspecialchars($idkontaktperson); ?>">Gå tilbake og endre</a>
+        <?php 
+        if ($stmt)
+            {
+                echo '<p>En ny kontakt er registrert</p>';
+            }
+            else 
+                {
+                    echo '<p id="slett">Det skjedde en feil, og kontaktpersonen kunne ikke registreres</p>';
+                }
+        ?>
     </main>
-
-    <?php else: ?>
-    <header>
-        <p>Rediger kontaktperson</p>
-    </header>
-    <main>
-        <?php if ($lagret): ?>
-            <p>Kontaktpersonen er oppdatert.</p>
-        <?php else: ?>
-            <p style="background-color:#fde8e8; border-left-color:#e05c5c;">Det skjedde en feil - kontaktpersonen kunne ikke oppdateres.</p>
-        <?php endif; ?>
-        <a id="std_link" href="../frontend/les_kontakt.php">Tilbake til kontaktlisten</a>
-    </main>
-    <?php endif; ?>
-
 </body>
 </html>
