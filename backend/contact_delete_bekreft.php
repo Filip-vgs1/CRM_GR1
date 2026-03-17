@@ -2,18 +2,18 @@
 
 include '../frontend/connect.php';
 
-if (isset($_GET['slett_kontakt']) && $_SERVER['REQUEST_METHOD'] == 'GET') {
+if (isset($_GET['slett_kontaktperson']) && $_SERVER['REQUEST_METHOD'] == 'GET') {
     $idkontaktperson = $_GET['idkontaktperson'];
 
     $sql = "DELETE FROM kontaktperson WHERE idkontaktperson = :idkontaktperson";
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':idkontaktperson', $idkontaktperson);
     $stmt->execute();
-    $slettet = $stmt->rowCount() > 0;
-} else {
-    $slettet = false;
-}
 
+    $kontaktperson = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+    print_r($kontaktperson);
+} 
 ?>
 
 <!DOCTYPE html>
@@ -30,12 +30,14 @@ if (isset($_GET['slett_kontakt']) && $_SERVER['REQUEST_METHOD'] == 'GET') {
         <p>Slett kontaktperson</p>
     </header>
     <main>
-        <?php if ($slettet): ?>
-            <p>Kontaktpersonen er slettet.</p>
-        <?php else: ?>
-            <p style="background-color:#fde8e8; border-left-color:#e05c5c;">Det skjedde en feil - kontaktpersonen kunne ikke slettes.</p>
-        <?php endif; ?>
-        <a id="std_link" href="../frontend/les_kontakt.php">Tilbake til kontaktlisten</a>
+        <?php
+        if ($stmt){
+            echo '<p> En kontaktperson er blitt slettet </p>';
+        }
+        else{
+            echo '<p id="slett"> Det oppsto en feil! Kontaktpersonen ble ikke slettet! </p>';
+        }
+        ?>
     </main>
 </body>
 </html>
