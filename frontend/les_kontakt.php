@@ -60,7 +60,7 @@ function sorteringslenke($kolonne, $label, $aktivKolonne, $aktivRetning, $nestRe
                     <td><?php echo htmlspecialchars($kontakt['kontaktpersonStatus']); ?></td>
                     <td><?php echo htmlspecialchars($kontakt['kontaktpersonDatoLagtTil']); ?></td>
                     <td><a href="..\backend\contact_update.php?idkontaktperson=<?php echo htmlspecialchars($kontakt['idkontaktperson']); ?>">Rediger</a></td>
-                    <td><a id="slett" href="slett_kontakt.php?idkontakt=<?php echo htmlspecialchars($kontakt['idkontaktperson']); ?>">Slett</a></td>
+                    <td><a id="slett" href="../backend/contact_delete.php?idkontaktperson=<?php echo htmlspecialchars($kontakt['idkontaktperson']); ?>">Slett</a></td>
                 </tr>
                 <?php endforeach; ?>
             </tbody>
