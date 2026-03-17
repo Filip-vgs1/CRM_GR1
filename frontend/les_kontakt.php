@@ -2,7 +2,7 @@
 
 include "connect.php";
 
-$tillatteSorteringer = ['kontaktpersonFornavn', 'kontaktpersonEtternavn', 'kontaktpersonEpost', 'kontaktpersonStatus'];
+$tillatteSorteringer = ['kontaktpersonFornavn', 'kontaktpersonEtternavn', 'kontaktpersonEpost', 'kontaktpersonStatus', 'firmaNavn'];
 $sorterPa    = isset($_GET['sorter']) && in_array($_GET['sorter'], $tillatteSorteringer) ? $_GET['sorter'] : 'kontaktpersonEtternavn';
 $retning     = isset($_GET['retning']) && $_GET['retning'] === 'DESC' ? 'DESC' : 'ASC';
 $nestRetning = $retning === 'ASC' ? 'DESC' : 'ASC';
@@ -45,7 +45,7 @@ function sorteringslenke($kolonne, $label, $aktivKolonne, $aktivRetning, $nestRe
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Firma</th>
+                    <th><?php echo sorteringslenke('firmaNavn', 'Firma', $sorterPa, $retning, $nestRetning); ?></th>
                     <th><?php echo sorteringslenke('kontaktpersonFornavn',  'Fornavn',   $sorterPa, $retning, $nestRetning); ?></th>
                     <th><?php echo sorteringslenke('kontaktpersonEtternavn','Etternavn', $sorterPa, $retning, $nestRetning); ?></th>
                     <th>Telefon</th>
