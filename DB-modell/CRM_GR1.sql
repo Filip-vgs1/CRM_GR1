@@ -1,4 +1,4 @@
--- Copy paste this into a new query window and run to create the database and tables for the CRM system.
+-- Copy paste dette under for å opprette databasen og tabellene for CRM_GR1
 
 CREATE SCHEMA IF NOT EXISTS CRM_GR1 DEFAULT CHARACTER SET utf8;
 USE CRM_GR1;
