@@ -23,12 +23,12 @@ if (isset($_GET['idfirma']) && ($_SERVER['REQUEST_METHOD'] == 'GET')) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/style.css" type="text/css">
+    <link rel="stylesheet" href="../frontend/style.css" type="text/css">
     <title>Rediger et firma</title>
 </head>
 <body>
     <section>
-        <?php include '..\frontend\meny.php'; ?>
+        <?php include '../frontend/meny.php'; ?>
     </section>
     <header>
         <p>Rediger et firma</p>
