@@ -45,7 +45,10 @@ if (isset($_GET['idkontaktperson']) && ($_SERVER['REQUEST_METHOD'] == 'GET')) {
             </section>
             <section>
                 <label for="kontaktpersonStatus">Status</label><br>
-                <input type="text" name="kontaktpersonStatus" id="kontaktpersonStatus" value="<?php echo htmlspecialchars($kontakt['kontaktpersonStatus']); ?>" required>
+                <select name="kontaktpersonStatus" id="kontaktpersonStatus">
+                    <option value="Aktiv" <?php echo $kontakt['kontaktpersonStatus'] === 'Aktiv' ? 'selected' : ''; ?>>Aktiv</option>
+                    <option value="Inaktiv" <?php echo $kontakt['kontaktpersonStatus'] === 'Inaktiv' ? 'selected' : ''; ?>>Inaktiv</option>
+                </select>
             </section>
             <section>
                 <label for="kontaktpersonFornavn">Kontaktperson fornavn</label><br>

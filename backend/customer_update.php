@@ -49,7 +49,10 @@ if (isset($_GET['idfirma']) && ($_SERVER['REQUEST_METHOD'] == 'GET')) {
             </section>
             <section>
                 <label for="firmaStatus">Status</label><br>
-                <input type="text" name="firmaStatus" id="firmaStatus" value="<?php echo htmlspecialchars($firma['firmaStatus']); ?>" required>
+                <select name="firmaStatus" id="firmaStatus">
+                    <option value="Aktiv" <?php echo $firma['firmaStatus'] === 'Aktiv' ? 'selected' : ''; ?>>Aktiv</option>
+                    <option value="Inaktiv" <?php echo $firma['firmaStatus'] === 'Inaktiv' ? 'selected' : ''; ?>>Inaktiv</option>
+                </select>
             </section>
             <section>
                 <label for="firmaAdresse">Adresse</label><br>
