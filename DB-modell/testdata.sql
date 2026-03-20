@@ -1,4 +1,4 @@
---Copy paste this, first crm_gr1.firma and then crm_gr1.kontaktperson.
+--Copy paste dette, men tilpass "crm_gr1" til navnet på din database, for å fylle inn testdata i tabellene 
 
 INSERT INTO crm_gr1.firma 
 (firmaStatus, firmaOrganisasjonsnummer, firmaNavn, firmaAdresse, firmaTlf, firmaKundeSiden, firmaPostnr)
