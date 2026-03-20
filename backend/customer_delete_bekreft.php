@@ -11,7 +11,7 @@ if (isset($_GET['slett_firma']) && $_SERVER['REQUEST_METHOD'] == 'GET') {
     $checkStmt->bindParam(':firma_idfirma', $idfirma, PDO::PARAM_INT);
     $checkStmt->execute();
     $antallKontakt = $checkStmt->fetch(PDO::FETCH_ASSOC)['antall'];
-
+    
     if ($antallKontakt > 0) {
         $stmt = false;
         $errorMessage = 'Kan ikke slette firma-et, det har kontaktperson tilknyttet.';
@@ -28,6 +28,7 @@ if (isset($_GET['slett_firma']) && $_SERVER['REQUEST_METHOD'] == 'GET') {
             $errorMessage = 'Det oppsto en feil ved sletting: ' . htmlspecialchars($e->getMessage(), ENT_QUOTES, 'UTF-8');
         }
     }
+
 } 
 ?>
 
