@@ -97,7 +97,7 @@ $sisteFirmaer = $stmtSiste->fetchAll(PDO::FETCH_ASSOC);
 </td>
 
 <td>
-    <span class="badge <?php echo strtolower($f['firmaStatus']); ?>">
+<span class="badge <?php echo strtolower($f['firmaStatus']); ?>">
 <?php echo htmlspecialchars($f['firmaStatus']); ?>
 </span>
 </td>
