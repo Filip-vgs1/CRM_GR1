@@ -26,7 +26,7 @@ if (isset($_GET['idfirma']) && ($_SERVER['REQUEST_METHOD'] == 'GET')) {
 </head>
 <body>
     <section>
-        <?php include '..\frontend\meny.php'; ?>
+        <?php include '../frontend/meny.php'; ?>
     </section>
     <header>
         <p>Rediger et firma</p>

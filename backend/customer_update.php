@@ -1,7 +1,7 @@
 <?php
 
 //Hente databasen
-include '..\frontend\connect.php';
+include '../frontend/connect.php';
 
 
 if (isset($_GET['idfirma']) && ($_SERVER['REQUEST_METHOD'] == 'GET')) {

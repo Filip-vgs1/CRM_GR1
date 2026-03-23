@@ -1,7 +1,7 @@
 <?php
 
 //Hente databasen
-include '..\frontend\connect.php';
+include '../frontend/connect.php';
 
 
 if (isset($_GET['idkontaktperson']) && ($_SERVER['REQUEST_METHOD'] == 'GET')) {
@@ -28,7 +28,7 @@ if (isset($_GET['idkontaktperson']) && ($_SERVER['REQUEST_METHOD'] == 'GET')) {
 </head>
 <body>
     <section>
-        <?php include '..\frontend\meny.php'; ?>
+        <?php include '../frontend/meny.php'; ?>
     </section>
     <header>
         <p>Rediger en kontaktperson</p>
